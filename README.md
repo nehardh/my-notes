@@ -41,8 +41,8 @@ Follow these steps to set up and run the project locally:
 
 1. **Clone the Repository**  
    ```bash  
-   git clone <repository-link>  
-   cd <repository-folder>  
+   git clone [<repository-link>](https://github.com/nehardh/my-notes.git)  
+   cd frontend  
 
 2. **Install Dependencies**
    ```bash
