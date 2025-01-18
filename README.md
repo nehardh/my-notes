@@ -68,12 +68,11 @@ Contributions are welcome! To contribute:
 2. Create a feature branch:
   ```bash
   git checkout -b feature/YourFeatureName
-```
+  ```
 3. Commit your changes:
    ```bash
    git commit -m "Add your message here"
    ```
-   
 4. Push to the branch:
   ```bash
   git push origin feature/YourFeatureName
