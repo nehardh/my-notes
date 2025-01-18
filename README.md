@@ -51,28 +51,31 @@ Follow these steps to set up and run the project locally:
 ##🔗 API Endpoints
 -The frontend interacts with the backend through the following key endpoints:
 
-- **POST /api/auth/signup**: Register a new user.
-- **POST /api/auth/login**: User login.
-- **GET /api/notes**: Fetch all notes for the logged-in user.
-- **POST /api/notes**: Create a new note.
-- **PUT /api/notes/:id**: Update a specific note.
+**POST /api/auth/signup**: Register a new user.
+**POST /api/auth/login**: User login.
+**GET /api/notes**: Fetch all notes for the logged-in user.
+**POST /api/notes**: Create a new note.
+**PUT /api/notes/:id**: Update a specific note.
 **DELETE /api/notes/:id**: Delete a note.
 Refer to the backend repository for detailed documentation.
 
 
 ##👩‍💻 Contributing
 
-- Contributions are welcome! To contribute:
+Contributions are welcome! To contribute:
 
-- 1. Fork the repository.
-- 2. Create a feature branch:
+1. Fork the repository.
+2. Create a feature branch:
   ```bash
   git checkout -b feature/YourFeatureName
-- 3. Commit your changes:
+```
+3. Commit your changes:
    ```bash
    git commit -m "Add your message here"
+   
 - 4. Push to the branch:
   ```bash
   git push origin feature/YourFeatureName
+  
 - 5. Open a Pull Request.
 
