@@ -20,7 +20,9 @@ app.use(express.json());
 
 app.use(
     cors({
-        origin: "*",
+        origin: ["https://my-notes-alpha-eight.vercel.app"],
+        methods: ['POST', 'GET', 'PUT', 'DELETE'],
+        credentials: true,
     })
 );
 
