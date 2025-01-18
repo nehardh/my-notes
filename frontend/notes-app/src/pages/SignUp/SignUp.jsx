@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../../components/Navbar/Navbar'
 import PasswordInput from '../../components/Input/PasswordInput'
 import { validateEmail } from '../../utils/helper'
+import axiosInstance from '../../utils/axiosInstance'
 
 const SignUp = () => {
 
@@ -10,6 +11,8 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
    
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -32,6 +35,34 @@ const SignUp = () => {
     setError("");
 
     //SignUp API calls
+    try {
+      const response = await axiosInstance.post("/create-account", {
+        fullName: name,
+        email: email,
+        password: password,
+      });
+
+      //
+      if(response.data && response.data.error) {
+        setError(response.data.message);
+        return;
+      }
+
+      //
+      if(response.data && response.data.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
+        navigate("/dashboard");
+      }
+
+    } catch(error) {
+      //Handle login error
+      console.error("Error details:", error);
+      if(error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexpected error has occured, try again !");
+      }
+    }
 
   }
 
@@ -67,7 +98,7 @@ const SignUp = () => {
             {error && <p className="text-red-500 text-xs pb-1 pl-1">{error}</p>}
 
             <button type="submit" className="btn-primary rounded-lg">
-              SignIn
+              SignUp
             </button>
 
             <p className="text-sm text-center mt-4">
