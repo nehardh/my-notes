@@ -12,6 +12,10 @@ import AddNotesImg from '../../assets/add-notes.svg'
 import NoNotes from '../../assets/no-notes.svg' 
 
 const Home = () => {
+
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  
   const [openAddEditModal, setOpenAddEditModal] = useState({
     isShown: false,
     type: "add",
@@ -53,7 +57,7 @@ const Home = () => {
   //Get User Info
   const getUserInfo = async () => {
     try {
-      const response = await axiosInstance.get("/get-user");
+      const response = await axiosInstance.get(`${API_BASE_URL}/get-user`);
       if(response.data && response.data.user) {
         setUserInfo(response.data.user);
       }
@@ -68,7 +72,7 @@ const Home = () => {
   //Get All Notes
   const getAllNotes = async () => {
     try {
-      const response = await axiosInstance.get("/get-all-notes");
+      const response = await axiosInstance.get(`${API_BASE_URL}/get-all-notes`);
       //console.log("Notes response:", response); // Log the full response
       if(response.data && response.data.notes) {
         setAllNotes(response.data.notes);
@@ -82,7 +86,7 @@ const Home = () => {
   const deleteNotes = async (data) => {
     const noteId = data._id;
     try {
-      const response = await axiosInstance.delete(`/delete-note/${noteId}`);
+      const response = await axiosInstance.delete(`${API_BASE_URL}/delete-note/${noteId}`);
       if(response.data && !response.data.error) {
         showToastMessage("Note Deleted !", 'delete');
         getAllNotes();
@@ -96,7 +100,7 @@ const Home = () => {
 
   const onSearchNote = async (query) => {
     try {
-      const response = await axiosInstance.get("/search-notes", {
+      const response = await axiosInstance.get(`${API_BASE_URL}/search-notes`, {
         params: { query },
       });
 
@@ -116,7 +120,7 @@ const Home = () => {
 
   const updateisPinned = async (noteData) => {
     try {
-      const response = await axiosInstance.put(`/update-note-pinned/${noteData._id}` , { isPinned: !noteId.isPinned });
+      const response = await axiosInstance.put(`${API_BASE_URL}/update-note-pinned/${noteData._id}` , { isPinned: !noteId.isPinned });
       if(response.data && response.data.notes) {
         showToastMessage("Note is Pinned !");
         getAllNotes();

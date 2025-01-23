@@ -7,6 +7,8 @@ import axiosInstance from '../../utils/axiosInstance'
 
 const SignUp = () => {
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +38,7 @@ const SignUp = () => {
 
     //SignUp API calls
     try {
-      const response = await axiosInstance.post("/create-account", {
+      const response = await axiosInstance.post(`${API_BASE_URL}/create-account`, {
         fullName: name,
         email: email,
         password: password,
