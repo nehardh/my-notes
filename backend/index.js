@@ -18,11 +18,10 @@ const { authenticationToken } = require("./utilities");
 
 app.use(express.json());
 
+
 app.use(
     cors({
-        origin: "https://my-notes-backend-iwgc.onrender.com", // Replace with your backend domain
-        methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
-        credentials: true, // Allow credentials (cookies, HTTP authentication)
+        origin: "*",
     })
 );
 
