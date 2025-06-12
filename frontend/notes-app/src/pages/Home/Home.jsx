@@ -130,11 +130,7 @@ const Home = () => {
 
   return (
     <>
-      <Navbar
-        userInfo={userInfo}
-        onSearchNote={onSearchNote}
-        handleClearSearch={handleClearSearch}
-      />
+      <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
 
       <div className="w-[90%] max-w-7xl mx-auto mt-6">
         {allNotes.length > 0 ? (
@@ -223,12 +219,7 @@ const Home = () => {
         />
       </Modal>
 
-      <Toast
-        isShown={showToastMsg.isShown}
-        message={showToastMsg.message}
-        type={showToastMsg.type}
-        onClose={handleCloseToast}
-      />
+      <Toast isShown={showToastMsg.isShown}message={showToastMsg.message}type={showToastMsg.type} onClose={handleCloseToast} />
     </>
   );
 };
