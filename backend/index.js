@@ -3,7 +3,7 @@ require("dotenv").config();
 const config = require("./config.json");
 const mongoose = require("mongoose");
 
-mongoose.connect(config.connectionString);
+mongoose.connect(process.env.MONGO_URI);
 
 //Import all models here...
 const User = require("./models/user.model");
@@ -14,16 +14,19 @@ const cors = require("cors");
 const app = express();
 
 const jwt = require("jsonwebtoken");
-const { authenticationToken } = require("./utilities");
+const { authenticationToken } = require("./utilities/auth");
 
 app.use(express.json());
 
 
-app.use(
-    cors({
-        origin: "*",
-    })
-);
+app.use(cors({
+  origin: [
+    "http://localhost:5173",               // local dev (Vite default)
+    "https://my-notes.netlify.app"         // your production frontend URL
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 //Home (or) root page
 // app.get("/", (req, res) => {

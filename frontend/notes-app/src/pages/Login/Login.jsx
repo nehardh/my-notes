@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import PasswordInput from '../../components/Input/PasswordInput';
 import { validateEmail } from '../../utils/helper';
 import axiosInstance from '../../utils/axiosInstance';
+import { motion } from 'framer-motion';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -40,7 +41,8 @@ const Login = () => {
     } catch (error) {
       console.error('Login error:', error);
       setError(
-        error.response?.data?.message || 'An unexpected error has occurred. Please try again!'
+        error.response?.data?.message ||
+          'An unexpected error has occurred. Please try again!'
       );
     }
   };
@@ -48,41 +50,76 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-center justify-center min-h-[calc(100vh-80px)] px-4">
-        <div className="w-full max-w-md rounded-lg bg-white px-7 py-10 border-2 shadow-sm">
-          <form onSubmit={handleLogin}>
-            <h4 className="text-2xl mb-7 text-center font-semibold">Login</h4>
 
-            <input
-              type="text"
-              placeholder="Email"
-              className="w-full text-sm bg-transparent border-2 px-4 py-3 rounded-lg mb-3 outline-none"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+      {/* Background gradient */}
+      <div className="min-h-[calc(100vh-80px)] flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-100 relative overflow-hidden">
+        {/* Glow accent */}
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[300px] sm:w-[450px] md:w-[600px] h-[300px] sm:h-[450px] md:h-[600px] bg-blue-300/30 rounded-full blur-[120px] pointer-events-none" />
 
-            <PasswordInput
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+        {/* Card container */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative z-10 w-full max-w-sm sm:max-w-md px-4"
+        >
+          <div className="rounded-2xl bg-white/80 backdrop-blur-xl border border-blue-100 shadow-md sm:shadow-lg px-5 sm:px-7 py-8 sm:py-10">
+            <form onSubmit={handleLogin}>
+              {/* Heading */}
+              <h4 className="text-2xl sm:text-3xl font-semibold text-center mb-6 text-blue-700">
+                Welcome Back
+              </h4>
 
-            {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+              {/* Email input */}
+              <input
+                type="text"
+                placeholder="Email"
+                className="w-full text-sm sm:text-base bg-white/70 border border-blue-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 px-4 py-3 sm:py-3.5 rounded-lg mb-4 outline-none transition-all"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
 
-            <button
-              type="submit"
-              className="w-full mt-5 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition"
-            >
-              Login
-            </button>
+              {/* Password input */}
+              <PasswordInput
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="border-blue-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              />
 
-            <p className="text-sm text-center mt-4">
-              Not registered yet?{' '}
-              <Link to="/signup" className="text-primary font-medium underline">
-                Create Account
-              </Link>
-            </p>
-          </form>
-        </div>
+              {/* Error */}
+              {error && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-red-500 text-sm mt-2"
+                >
+                  {error}
+                </motion.p>
+              )}
+
+              {/* Button */}
+              <motion.button
+                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.02 }}
+                type="submit"
+                className="w-full mt-6 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white py-3 rounded-lg text-sm sm:text-base font-medium shadow-md hover:shadow-lg transition-all"
+              >
+                Login
+              </motion.button>
+
+              {/* Footer link */}
+              <p className="text-sm sm:text-base text-center mt-5 text-gray-600">
+                Not registered yet?{' '}
+                <Link
+                  to="/signup"
+                  className="text-blue-700 font-medium hover:underline"
+                >
+                  Create Account
+                </Link>
+              </p>
+            </form>
+          </div>
+        </motion.div>
       </div>
     </>
   );
