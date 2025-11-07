@@ -16,13 +16,15 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const { authenticationToken } = require("./utilities/auth");
 
+const PORT = process.env.PORT || 5000;
+
 app.use(express.json());
 
 
 app.use(cors({
   origin: [
     "http://localhost:5173",               // local dev (Vite default)
-    "https://my-notes.netlify.app"         // your production frontend URL
+    "https://noticean.netlify.app"         // your production frontend URL
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
@@ -281,6 +283,8 @@ app.get("/search-notes/", authenticationToken, async (req, res) => {
 
 })
 
-app.listen(8080);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
 
 module.exports = app;
