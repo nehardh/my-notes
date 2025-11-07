@@ -101,19 +101,35 @@ const Home = () => {
   };
 
   const updateisPinned = async (noteData) => {
+    const updatedPinnedState = !noteData.isPinned;
+
     try {
       const response = await axiosInstance.put(
         `/update-note-pinned/${noteData._id}`,
-        { isPinned: !noteData.isPinned }
+        { isPinned: updatedPinnedState }
       );
-      if (response.data?.notes) {
-        showToastMessage("Note Pinned!");
-        getAllNotes();
+
+      if (response.data?.note) {
+        showToastMessage(
+          updatedPinnedState ? "Note pinned successfully" : "Note unpinned"
+        );
+
+        // Update UI immediately
+        setAllNotes((prevNotes) =>
+          prevNotes.map((note) =>
+            note._id === noteData._id
+              ? { ...note, isPinned: updatedPinnedState }
+              : note
+          )
+        );
+      } else {
+        console.warn("Unexpected response:", response.data);
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error updating pin status:", error);
     }
   };
+
 
   const pinnedNotes = allNotes.filter((note) => note.isPinned);
   const otherNotes = allNotes.filter((note) => !note.isPinned);
